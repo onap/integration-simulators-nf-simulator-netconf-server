@@ -1,0 +1,58 @@
+<!--
+ ============LICENSE_START=======================================================
+ Netconf-server
+ ================================================================================
+ Copyright (C) 2021 Nokia. All rights reserved.
+ ================================================================================
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ ============LICENSE_END=========================================================
+-->
+
+<netconf-server xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-server">
+  <listen>
+    <endpoint>
+      <name>default-tls</name>
+      <tls>
+        <tcp-server-parameters>
+          <local-address>0.0.0.0</local-address>
+          <keepalives>
+            <idle-time>1</idle-time>
+            <max-probes>10</max-probes>
+            <probe-interval>5</probe-interval>
+          </keepalives>
+        </tcp-server-parameters>
+        <tls-server-parameters>
+          <server-identity>
+            <keystore-reference>
+              <asymmetric-key>SERVER_KEY_NAME</asymmetric-key>
+              <certificate>SERVER_CERT_NAME</certificate>
+            </keystore-reference>
+          </server-identity>
+          <client-authentication>
+            <required/>
+            <ca-certs>CA_CERT_NAME</ca-certs>
+            <client-certs>CLIENT_CERT_NAME</client-certs>
+            <cert-maps>
+              <cert-to-name>
+                <id>1</id>
+                <fingerprint>02:CLIENT_FINGERPRINT_HERE</fingerprint>
+                <map-type xmlns:x509c2n="urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name">x509c2n:specified</map-type>
+                <name>tls-test</name>
+              </cert-to-name>
+            </cert-maps>
+          </client-authentication>
+        </tls-server-parameters>
+      </tls>
+    </endpoint>
+  </listen>
+</netconf-server>
