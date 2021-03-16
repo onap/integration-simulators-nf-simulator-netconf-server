@@ -35,7 +35,7 @@ rm ca.csr
 openssl req -nodes -newkey rsa:2048 -keyout server.key -out server.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF.SERVER/"
 openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 730 -sha256
 openssl x509 -pubkey -noout -in server.crt  > server_pub.key
-rm server.csrsrl
+rm server.csr
 
 ## Generate Client cert and key
 openssl req -nodes -newkey rsa:2048 -keyout client.key -out client.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF.CLIENT/"

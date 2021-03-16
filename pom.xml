@@ -44,6 +44,11 @@
         <docker.image.tag>latest</docker.image.tag>
         <docker-image.namespace>onap</docker-image.namespace>
         <docker-image.name.prefix>org.onap.integration.simulators</docker-image.name.prefix>
+
+        <nexusproxy>https://nexus.onap.org</nexusproxy>
+        <snapshotNexusPath>/content/repositories/snapshots/</snapshotNexusPath>
+        <releaseNexusPath>/content/repositories/releases/</releaseNexusPath>
+        <stagingNexusPath>/content/repositories/staging/</stagingNexusPath>
     </properties>
 
     <profiles>
@@ -69,6 +74,7 @@
                                 <phase>package</phase>
                                 <goals>
                                     <goal>build</goal>
+                                    <goal>push</goal>
                                 </goals>
                             </execution>
                             <execution>
