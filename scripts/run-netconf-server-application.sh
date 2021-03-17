@@ -19,32 +19,12 @@
 # ============LICENSE_END=========================================================
 ###
 
-if [ "$#" -ge 1 ]; then
+if [ "$#" -eq 2 ]; then
 
-  ## Set up variable
-  SCRIPTS_DIR=$PWD/"$(dirname $0)"
-  enable_tls=${ENABLE_TLS:-false}
-  models_configuration_file_name=${MODELS_CONFIGURATION_FILE_NAME:-models-configuration.ini}
-
-  ## Install all modules from given directory
-  $SCRIPTS_DIR/install-all-module-from-directory.sh $1
-
-  ## If TLS is enabled start initializing certificates
-  if [[ "$enable_tls" == "true" ]]; then
-    if [ "$#" -ge 2 ]; then
-      echo "initializing TLS"
-      $SCRIPTS_DIR/install-tls-with-custom-certificates.sh  $SCRIPTS_DIR/tls $2
-    else
-      echo "Missing second argument: path to file with certificates for TLS."
-    fi
-  fi
-
-  ## Run netconf server application
-  $SCRIPTS_DIR/run-netconf-server-application.sh $1 $models_configuration_file_name
-
-  ## Run sysrepo supervisor
-  /usr/bin/supervisord -c /etc/supervisord.conf
+  echo "Starting NETCONF server"
+  export PYTHONPATH=$(pwd):${PYTHONPATH}
+  python3 ./application/app.py $1/$2 &
 
 else
-  echo "Missing first argument: path to file with YANG models."
+    echo "Missing argument: path to file with models to subscribe to."
 fi
