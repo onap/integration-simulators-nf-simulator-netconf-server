@@ -4,7 +4,7 @@ services:
 
   netconf-server:
     container_name: netconf-server
-    image: onap/org.onap.integration.simulators.netconf-server:latest
+    image: onap/org.onap.integration.nfsimulator.netconfserver:latest
     environment:
      - ENABLE_TLS=true
     ports:
