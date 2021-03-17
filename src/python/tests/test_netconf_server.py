@@ -1,7 +1,6 @@
-#!/bin/bash
 ###
 # ============LICENSE_START=======================================================
-# Netconf-server
+# Simulator
 # ================================================================================
 # Copyright (C) 2021 Nokia. All rights reserved.
 # ================================================================================
@@ -18,32 +17,25 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import unittest
+from unittest.mock import MagicMock
 
-if [ "$#" -ge 1 ]; then
+from tests.mocs.mocked_session import MockedSession
+from application.netconf_server import NetconfServer
 
-  ## Set up variable
-  SCRIPTS_DIR=$PWD/"$(dirname $0)"
-  enable_tls=${ENABLE_TLS:-false}
 
-  ## Install all modules from given directory
-  $SCRIPTS_DIR/install-all-module-from-directory.sh $1
+class TestNetconfServer(unittest.TestCase):
 
-  ## If TLS is enabled start initializing certificates
-  if [[ "$enable_tls" == "true" ]]; then
-    if [ "$#" -ge 2 ]; then
-      echo "initializing TLS"
-      $SCRIPTS_DIR/install-tls-with-custom-certificates.sh  $SCRIPTS_DIR/tls $2
-    else
-      echo "Missing second argument: path to file with certificates for TLS."
-    fi
-  fi
+    def test_should_create_and_run_netconf_server_with_one_model(self):
+        server = NetconfServer(["test"])
+        session = MockedSession()
+        session.subscribe_module_change = MagicMock()
+        server.run(session)
+        session.subscribe_module_change.assert_called_once()
 
-  ## Run netconf server application
-  $SCRIPTS_DIR/run-netconf-server-application.sh $1
-
-  ## Run sysrepo supervisor
-  /usr/bin/supervisord -c /etc/supervisord.conf
-
-else
-  echo "Missing first argument: path to file with YANG models."
-fi
+    def test_should_create_and_run_netconf_server_with_multiple_models(self):
+        server = NetconfServer(["test", "test2", "test3"])
+        session = MockedSession()
+        session.subscribe_module_change = MagicMock()
+        server.run(session)
+        self.assertEqual(session.subscribe_module_change.call_count, 3)
