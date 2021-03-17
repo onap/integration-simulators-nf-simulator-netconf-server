@@ -1,7 +1,6 @@
-#!/bin/bash
 ###
 # ============LICENSE_START=======================================================
-# Netconf-server
+# Simulator
 # ================================================================================
 # Copyright (C) 2021 Nokia. All rights reserved.
 # ================================================================================
@@ -18,32 +17,26 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import time
+import unittest
+from unittest.mock import MagicMock
 
-if [ "$#" -ge 1 ]; then
+from application.sysrepo_interface.config_change_data import ConfigChangeData
+from application.sysrepo_interface.config_change_subscriber import ConfigChangeSubscriber
+from tests.mocs.mocked_session import MockedSession
 
-  ## Set up variable
-  SCRIPTS_DIR=$PWD/"$(dirname $0)"
-  enable_tls=${ENABLE_TLS:-false}
 
-  ## Install all modules from given directory
-  $SCRIPTS_DIR/install-all-module-from-directory.sh $1
+class TestConfigChangeSubscriber(unittest.TestCase):
 
-  ## If TLS is enabled start initializing certificates
-  if [[ "$enable_tls" == "true" ]]; then
-    if [ "$#" -ge 2 ]; then
-      echo "initializing TLS"
-      $SCRIPTS_DIR/install-tls-with-custom-certificates.sh  $SCRIPTS_DIR/tls $2
-    else
-      echo "Missing second argument: path to file with certificates for TLS."
-    fi
-  fi
+    @staticmethod
+    def __test_callback(config_change_data: ConfigChangeData):
+        pass
 
-  ## Run netconf server application
-  $SCRIPTS_DIR/run-netconf-server-application.sh $1
-
-  ## Run sysrepo supervisor
-  /usr/bin/supervisord -c /etc/supervisord.conf
-
-else
-  echo "Missing first argument: path to file with YANG models."
-fi
+    def test_should_create_subscriber_and_call_callback_when_session_detects_change(self):
+        self.__test_callback = MagicMock()
+        subscriber = ConfigChangeSubscriber("test", self.__test_callback)
+        session = MockedSession()
+        subscriber.subscribe_on_model_change(session)
+        self.__test_callback.assert_not_called()
+        session.call_config_changed()
+        self.__test_callback.assert_called_once()

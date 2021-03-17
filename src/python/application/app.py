@@ -1,7 +1,6 @@
-#!/bin/bash
 ###
 # ============LICENSE_START=======================================================
-# Netconf-server
+# Simulator
 # ================================================================================
 # Copyright (C) 2021 Nokia. All rights reserved.
 # ================================================================================
@@ -18,32 +17,25 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import asyncio
+import sys
+import logging
 
-if [ "$#" -ge 1 ]; then
+from application.netconf_server import NetconfServer
+from application.sysrepo_interface.sysrepo_client import SysrepoClient
 
-  ## Set up variable
-  SCRIPTS_DIR=$PWD/"$(dirname $0)"
-  enable_tls=${ENABLE_TLS:-false}
+logging.basicConfig(level=logging.INFO)
 
-  ## Install all modules from given directory
-  $SCRIPTS_DIR/install-all-module-from-directory.sh $1
 
-  ## If TLS is enabled start initializing certificates
-  if [[ "$enable_tls" == "true" ]]; then
-    if [ "$#" -ge 2 ]; then
-      echo "initializing TLS"
-      $SCRIPTS_DIR/install-tls-with-custom-certificates.sh  $SCRIPTS_DIR/tls $2
-    else
-      echo "Missing second argument: path to file with certificates for TLS."
-    fi
-  fi
+def run_server_forever(session, server):
+    server.run(session)
+    asyncio.get_event_loop().run_forever()
 
-  ## Run netconf server application
-  $SCRIPTS_DIR/run-netconf-server-application.sh $1
 
-  ## Run sysrepo supervisor
-  /usr/bin/supervisord -c /etc/supervisord.conf
-
-else
-  echo "Missing first argument: path to file with YANG models."
-fi
+if __name__ == "__main__":
+    if len(sys.argv) >= 2:
+        modes_to_subscribe = sys.argv[1].split(",")
+        netconf_server = NetconfServer(modes_to_subscribe)
+        SysrepoClient().run_in_session(run_server_forever, netconf_server)
+    else:
+        logging.error("missing path to file with configuration argument required to start netconf server.")

@@ -1,7 +1,6 @@
-#!/bin/bash
 ###
 # ============LICENSE_START=======================================================
-# Netconf-server
+# Simulator
 # ================================================================================
 # Copyright (C) 2021 Nokia. All rights reserved.
 # ================================================================================
@@ -19,31 +18,25 @@
 # ============LICENSE_END=========================================================
 ###
 
-if [ "$#" -ge 1 ]; then
+import asyncio
+import logging
 
-  ## Set up variable
-  SCRIPTS_DIR=$PWD/"$(dirname $0)"
-  enable_tls=${ENABLE_TLS:-false}
+from application.sysrepo_interface.config_change_data import ConfigChangeData
 
-  ## Install all modules from given directory
-  $SCRIPTS_DIR/install-all-module-from-directory.sh $1
 
-  ## If TLS is enabled start initializing certificates
-  if [[ "$enable_tls" == "true" ]]; then
-    if [ "$#" -ge 2 ]; then
-      echo "initializing TLS"
-      $SCRIPTS_DIR/install-tls-with-custom-certificates.sh  $SCRIPTS_DIR/tls $2
-    else
-      echo "Missing second argument: path to file with certificates for TLS."
-    fi
-  fi
+class ConfigChangeSubscriber(object):
 
-  ## Run netconf server application
-  $SCRIPTS_DIR/run-netconf-server-application.sh $1
+    def __init__(self, module_name, callback_function):
+        self.module_name = module_name
+        self.callback_function = callback_function
 
-  ## Run sysrepo supervisor
-  /usr/bin/supervisord -c /etc/supervisord.conf
+    def subscribe_on_model_change(self, session):
+        logging.info("Subscribing on config change for module %s" % self.module_name)
+        session.subscribe_module_change(
+            self.module_name, None, self.on_module_have_changed, asyncio_register=True
+        )
 
-else
-  echo "Missing first argument: path to file with YANG models."
-fi
+    async def on_module_have_changed(self, event, req_id, changes, private_data):
+        logging.debug("Module changed: %s (request ID %s)" % (event, req_id))
+        self.callback_function(ConfigChangeData(event, req_id, changes))
+        await asyncio.sleep(0)
