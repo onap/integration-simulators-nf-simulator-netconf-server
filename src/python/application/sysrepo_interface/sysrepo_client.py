@@ -1,7 +1,6 @@
-#!/bin/bash
 ###
 # ============LICENSE_START=======================================================
-# Netconf-server
+# Simulator
 # ================================================================================
 # Copyright (C) 2021 Nokia. All rights reserved.
 # ================================================================================
@@ -18,32 +17,13 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import sysrepo
 
-if [ "$#" -ge 1 ]; then
 
-  ## Set up variable
-  SCRIPTS_DIR=$PWD/"$(dirname $0)"
-  enable_tls=${ENABLE_TLS:-false}
+class SysrepoClient(object):
 
-  ## Install all modules from given directory
-  $SCRIPTS_DIR/install-all-module-from-directory.sh $1
-
-  ## If TLS is enabled start initializing certificates
-  if [[ "$enable_tls" == "true" ]]; then
-    if [ "$#" -ge 2 ]; then
-      echo "initializing TLS"
-      $SCRIPTS_DIR/install-tls-with-custom-certificates.sh  $SCRIPTS_DIR/tls $2
-    else
-      echo "Missing second argument: path to file with certificates for TLS."
-    fi
-  fi
-
-  ## Run netconf server application
-  $SCRIPTS_DIR/run-netconf-server-application.sh $1
-
-  ## Run sysrepo supervisor
-  /usr/bin/supervisord -c /etc/supervisord.conf
-
-else
-  echo "Missing first argument: path to file with YANG models."
-fi
+    @staticmethod
+    def run_in_session(method_to_run, *extra_args):
+        with sysrepo.SysrepoConnection() as connection:
+            with connection.start_session() as session:
+                method_to_run(session, *extra_args)
