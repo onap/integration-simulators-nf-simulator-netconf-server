@@ -43,7 +43,7 @@
         <docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
         <docker.image.tag>latest</docker.image.tag>
         <docker-image.namespace>onap</docker-image.namespace>
-        <docker-image.name.prefix>org.onap.integration.simulators</docker-image.name.prefix>
+        <docker-image.name.prefix>org.onap.integration.nfsimulator</docker-image.name.prefix>
     </properties>
 
     <profiles>
