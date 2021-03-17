@@ -1,4 +1,3 @@
-#!/bin/sh
 ###
 # ============LICENSE_START=======================================================
 # Netconf Server
@@ -18,26 +17,18 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import asyncio
 
-## Set up certs path
-cert_path="."
-if [ "$#" -eq 1 ]; then
-  cert_path=$1
-fi
-cd $cert_path
 
-## Generate self-signed CA cert and key
-openssl req -nodes -newkey rsa:2048 -keyout ca.key -out ca.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF/"
-openssl x509 -req -in ca.csr -signkey ca.key -days 730 -out ca.crt
-rm ca.csr
+class MockedSession(object):
 
-## Generate Server cert and key
-openssl req -nodes -newkey rsa:2048 -keyout server.key -out server.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF.SERVER/"
-openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 730 -sha256
-openssl x509 -pubkey -noout -in server.crt  > server_pub.key
-rm server.csr
+    def __init__(self):
+        self.__callback = None
 
-## Generate Client cert and key
-openssl req -nodes -newkey rsa:2048 -keyout client.key -out client.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF.CLIENT/"
-openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out client.crt -days 730 -sha256
-rm client.csr
+    def subscribe_module_change(self, module_name, _, on_module_have_changed, asyncio_register=True):
+        self.__callback = on_module_have_changed
+        pass
+
+    def call_config_changed(self):
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.__callback('event', 'req_id', 'changes', 'private_data'))

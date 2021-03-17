@@ -1,7 +1,7 @@
 #!/bin/bash
 ###
 # ============LICENSE_START=======================================================
-# Netconf-server
+# Netconf Server
 # ================================================================================
 # Copyright (C) 2021 Nokia. All rights reserved.
 # ================================================================================
@@ -24,6 +24,7 @@ if [ "$#" -ge 1 ]; then
   ## Set up variable
   SCRIPTS_DIR=$PWD/"$(dirname $0)"
   enable_tls=${ENABLE_TLS:-false}
+  models_configuration_file_name=${MODELS_CONFIGURATION_FILE_NAME:-models-configuration.ini}
 
   ## Install all modules from given directory
   $SCRIPTS_DIR/install-all-module-from-directory.sh $1
@@ -37,6 +38,9 @@ if [ "$#" -ge 1 ]; then
       echo "Missing second argument: path to file with certificates for TLS."
     fi
   fi
+
+  ## Run netconf server application
+  $SCRIPTS_DIR/run-netconf-server-application.sh $1 $models_configuration_file_name
 
   ## Run sysrepo supervisor
   /usr/bin/supervisord -c /etc/supervisord.conf

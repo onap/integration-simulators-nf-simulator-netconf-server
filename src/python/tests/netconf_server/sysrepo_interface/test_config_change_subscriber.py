@@ -1,4 +1,3 @@
-#!/bin/sh
 ###
 # ============LICENSE_START=======================================================
 # Netconf Server
@@ -18,26 +17,30 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import unittest
+from unittest.mock import MagicMock
 
-## Set up certs path
-cert_path="."
-if [ "$#" -eq 1 ]; then
-  cert_path=$1
-fi
-cd $cert_path
+from netconf_server.sysrepo_interface.config_change_data import ConfigChangeData
+from netconf_server.sysrepo_interface.config_change_subscriber import ConfigChangeSubscriber
+from tests.mocs.mocked_session import MockedSession
 
-## Generate self-signed CA cert and key
-openssl req -nodes -newkey rsa:2048 -keyout ca.key -out ca.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF/"
-openssl x509 -req -in ca.csr -signkey ca.key -days 730 -out ca.crt
-rm ca.csr
 
-## Generate Server cert and key
-openssl req -nodes -newkey rsa:2048 -keyout server.key -out server.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF.SERVER/"
-openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 730 -sha256
-openssl x509 -pubkey -noout -in server.crt  > server_pub.key
-rm server.csr
+class TestConfigChangeSubscriber(unittest.TestCase):
 
-## Generate Client cert and key
-openssl req -nodes -newkey rsa:2048 -keyout client.key -out client.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF.CLIENT/"
-openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out client.crt -days 730 -sha256
-rm client.csr
+    @staticmethod
+    def __test_callback(config_change_data: ConfigChangeData):
+        pass
+
+    def test_should_create_subscriber_and_call_callback_when_session_detects_change(self):
+        # given
+        self.__test_callback = MagicMock()
+        subscriber = ConfigChangeSubscriber("test", self.__test_callback)
+        session = MockedSession()
+        subscriber.subscribe_on_model_change(session)
+        self.__test_callback.assert_not_called()
+
+        # when
+        session.call_config_changed()
+
+        # then
+        self.__test_callback.assert_called_once()

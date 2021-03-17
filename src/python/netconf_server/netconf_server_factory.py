@@ -1,4 +1,3 @@
-#!/bin/sh
 ###
 # ============LICENSE_START=======================================================
 # Netconf Server
@@ -18,26 +17,24 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import logging
 
-## Set up certs path
-cert_path="."
-if [ "$#" -eq 1 ]; then
-  cert_path=$1
-fi
-cd $cert_path
+from netconf_server.netconf_server import NetconfServer
+from netconf_server.sysrepo_interface.config_change_subscriber import ConfigChangeSubscriber
 
-## Generate self-signed CA cert and key
-openssl req -nodes -newkey rsa:2048 -keyout ca.key -out ca.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF/"
-openssl x509 -req -in ca.csr -signkey ca.key -days 730 -out ca.crt
-rm ca.csr
+logger = logging.getLogger("netconf_saver")
 
-## Generate Server cert and key
-openssl req -nodes -newkey rsa:2048 -keyout server.key -out server.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF.SERVER/"
-openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 730 -sha256
-openssl x509 -pubkey -noout -in server.crt  > server_pub.key
-rm server.csr
 
-## Generate Client cert and key
-openssl req -nodes -newkey rsa:2048 -keyout client.key -out client.csr -subj "/C=US/O=ONAP/OU=OSAAF/CN=CA.NETCONF.CLIENT/"
-openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out client.crt -days 730 -sha256
-rm client.csr
+class NetconfServerFactory(object):
+
+    def __init__(self, modules_to_subscribe_names: list):
+        self.modules_to_subscribe_names = modules_to_subscribe_names
+
+    def create(self) -> NetconfServer:
+        subscriptions = list()
+        for module_name in self.modules_to_subscribe_names:
+            subscriptions.append(
+                ConfigChangeSubscriber(module_name)
+            )
+        return NetconfServer(subscriptions)
+
