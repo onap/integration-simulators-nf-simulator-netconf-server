@@ -1,0 +1,276 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b1cff96_dde222a1",
+        "filename": "README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "not coma, but comma",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7bafa77_9dd35c01",
+        "filename": "models/models-configuration.ini",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "why pnf-simulator?",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f69db4f_dc94a637",
+        "filename": "src/python/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "Start from capital letter",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed159b17_2fcb8c48",
+        "filename": "src/python/application/__init__.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "sometimes you use Netconf-server, now Simulator. Which word is correct?",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5593ca2_8e57fd66",
+        "filename": "src/python/application/app.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "extract to separate method: create_configured_server",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c21a1e3_7d72cab3",
+        "filename": "src/python/application/app.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "Start a sentence from capital letter.",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1358180c_2074f222",
+        "filename": "src/python/application/app.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "as above",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e4b4a44_37a08494",
+        "filename": "src/python/application/netconf_server.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "pls do not execute any logic in \"constructor\" method. __init__ should be used only for initialization. Use factory method for object creation.",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47716ad0_f8277a15",
+        "filename": "src/python/application/sysrepo_configuration/sysrepo_configuration.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "pls use python3 and data types in all classes in project",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8510de3_ddf1c4f1",
+        "filename": "src/python/application/sysrepo_configuration/sysrepo_configuration_loader.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "extract to const: SUBSCRIPTION and remove duplications",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a034b4a7_ac28f6a8",
+        "filename": "src/python/application/sysrepo_interface/config_change_subscriber.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "magic number: 0",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00e37c50_d393fdc1",
+        "filename": "src/python/requirements.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "set lib version",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e96ee8fa_f2e88e34",
+        "filename": "src/python/setup.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "no information about requirements: https://stackoverflow.com/questions/14399534/reference-requirements-txt-for-the-install-requires-kwarg-in-setuptools-setup-py",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d0c4a6c_4016558d",
+        "filename": "src/python/test-requirements.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "set versions",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54f132e3_e93f3b8d",
+        "filename": "src/python/tests/sysrepo_interface/test_config_change_subscriber.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "pls add sections given when then in all tests",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02e04092_643fee6d",
+        "filename": "src/python/tox.ini",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-23T08:32:34Z",
+      "side": 1,
+      "message": "-rtest-requirements.txt is it correct to have -rtest... at the begin of file?",
+      "revId": "90454caddb5ba4f67449f15ebaed58ce81542f59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
