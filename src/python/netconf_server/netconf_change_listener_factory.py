@@ -22,7 +22,7 @@ import logging
 from netconf_server.netconf_change_listener import NetconfChangeListener
 from netconf_server.sysrepo_interface.config_change_subscriber import ConfigChangeSubscriber
 
-logger = logging.getLogger("netconf_saver")
+logger = logging.getLogger(__name__)
 
 
 class NetconfChangeListenerFactory(object):
