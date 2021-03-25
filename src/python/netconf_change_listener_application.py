@@ -17,9 +17,11 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import asyncio
 import sys
 import logging
 from netconf_server.netconf_rest_server import NetconfRestServer
+from netconf_server.sysrepo_configuration.sysrepo_configuration_manager import SysrepoConfigurationManager
 
 from netconf_server.netconf_change_listener import NetconfChangeListener
 from netconf_server.netconf_change_listener_factory import NetconfChangeListenerFactory
@@ -28,15 +30,15 @@ from netconf_server.sysrepo_configuration.sysrepo_configuration_loader import Sy
 from netconf_server.sysrepo_interface.sysrepo_client import SysrepoClient
 
 logging.basicConfig(
-    handlers=[logging.StreamHandler(), logging.FileHandler("/logs/netconf_server.log")],
+    handlers=[logging.StreamHandler(), logging.FileHandler("/logs/netconf_change_listener.log")],
     level=logging.DEBUG
 )
-logger = logging.getLogger("netconf_server")
+logger = logging.getLogger("netconf_server_application")
 
 
-def run_server_forever(session, change_listener: NetconfChangeListener, server_rest: NetconfRestServer):
+def run_server_forever(session, connection, change_listener: NetconfChangeListener):
     change_listener.run(session)
-    server_rest.start()
+    asyncio.get_event_loop().run_forever()
 
 
 def create_change_listener() -> NetconfChangeListener:
@@ -44,16 +46,11 @@ def create_change_listener() -> NetconfChangeListener:
     return NetconfChangeListenerFactory(configuration.models_to_subscribe_to).create()
 
 
-def create_rest_server() -> NetconfRestServer:
-    return NetconfRestServer()
-
-
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
         try:
             netconf_change_listener = create_change_listener()
-            rest_server = create_rest_server()
-            SysrepoClient().run_in_session(run_server_forever, netconf_change_listener, rest_server)
+            SysrepoClient().run_in_session(run_server_forever, netconf_change_listener)
         except ConfigLoadingException:
             logger.error("File to load configuration from file %s" % sys.argv[1])
     else:

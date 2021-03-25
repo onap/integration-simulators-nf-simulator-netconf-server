@@ -1,6 +1,3 @@
-###
-# ============LICENSE_START=======================================================
-# Netconf Server
 # ================================================================================
 # Copyright (C) 2021 Nokia. All rights reserved.
 # ================================================================================
@@ -17,13 +14,28 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
-import sysrepo
+
+import logging
 
 
-class SysrepoClient(object):
+class SysrepoConfigurationManager(object):
+    logger = logging.getLogger(__name__)
 
-    @staticmethod
-    def run_in_session(method_to_run: callable, *extra_args):
-        with sysrepo.SysrepoConnection() as connection:
-            with connection.start_session() as session:
-                method_to_run(session, connection, *extra_args)
+    def __init__(self, session, connection):
+        self._connection = connection
+        self._session = session
+
+    def __parse_config_data(self, config_data):
+        self.logger.debug(config_data)
+        ctx = self._connection.get_ly_ctx()
+        data = ctx.parse_data_mem(
+            config_data,
+            "xml",
+            config=True,
+            strict=False,
+        )
+        return data
+
+    def change_configuration(self, config_data: str, module_name: str):
+        data = self.__parse_config_data(config_data)
+        self._session.replace_config_ly(data, module_name)
