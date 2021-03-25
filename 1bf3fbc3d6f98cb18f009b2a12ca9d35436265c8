@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Bogumil Zebek <bogumil.zebek@nokia.com>
+Submitted-by: Bogumil Zebek <bogumil.zebek@nokia.com>
+Submitted-at: Thu, 25 Mar 2021 12:59:41 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/integration/simulators/nf-simulator/netconf-server/+/119810
+Project: integration/simulators/nf-simulator/netconf-server
+Branch: refs/heads/master
