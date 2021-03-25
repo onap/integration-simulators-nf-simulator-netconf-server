@@ -21,9 +21,18 @@
 
 if [ "$#" -eq 2 ]; then
 
-  echo "Starting NETCONF server"
-  python3 ./application/netconf_server_application.py $1/$2 &
+  ## Set up variable
+  MODELS_CONFIG_PATH=$1
+  MODELS_CONFIG_NAME=$2
+
+  echo "Starting NETCONF Change listener"
+  python3 ./application/netconf_change_listener_application.py $MODELS_CONFIG_PATH/$MODELS_CONFIG_NAME &
+
+
+  echo "Starting NETCONF Rest server"
+  python3 ./application/netconf_rest_application.py $MODELS_CONFIG_PATH/$MODELS_CONFIG_NAME &
+
 
 else
-    echo "Missing argument: path to file with models to subscribe to."
+    echo "[ERROR] Invalid number of arguments. Please provide all required arguments."
 fi

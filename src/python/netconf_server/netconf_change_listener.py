@@ -21,7 +21,7 @@ import logging
 
 from netconf_server.sysrepo_interface.config_change_data import ConfigChangeData
 
-logger = logging.getLogger("netconf_saver")
+logger = logging.getLogger(__name__)
 
 
 class NetconfChangeListener(object):
