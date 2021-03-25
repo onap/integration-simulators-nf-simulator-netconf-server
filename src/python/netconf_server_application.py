@@ -20,8 +20,9 @@
 import asyncio
 import sys
 import logging
+from netconf_server.netconf_rest_server import NetconfRestServer
 
-from netconf_server.netconf_server import NetconfServer
+from netconf_server.netconf_change_server import NetconfServer
 from netconf_server.netconf_server_factory import NetconfServerFactory
 from netconf_server.sysrepo_configuration.sysrepo_configuration_loader import SysrepoConfigurationLoader, \
     ConfigLoadingException
@@ -34,9 +35,9 @@ logging.basicConfig(
 logger = logging.getLogger("netconf_saver")
 
 
-def run_server_forever(session, server: NetconfServer):
+def run_server_forever(session, server: NetconfServer, server_rest: NetconfRestServer):
     server.run(session)
-    asyncio.get_event_loop().run_forever()
+    server_rest.run_app("server")
 
 
 def create_configured_server() -> NetconfServer:
@@ -44,11 +45,16 @@ def create_configured_server() -> NetconfServer:
     return NetconfServerFactory(configuration.models_to_subscribe_to).create()
 
 
+def create_rest_server() -> NetconfRestServer:
+    return NetconfRestServer
+
+
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
         try:
             netconf_server = create_configured_server()
-            SysrepoClient().run_in_session(run_server_forever, netconf_server)
+            rest_server = create_rest_server()
+            SysrepoClient().run_in_session(run_server_forever, netconf_server, rest_server)
         except ConfigLoadingException:
             logger.error("File to load configuration from file %s" % sys.argv[1])
     else:

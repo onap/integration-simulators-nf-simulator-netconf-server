@@ -19,7 +19,7 @@
 ###
 import logging
 
-from netconf_server.netconf_server import NetconfServer
+from netconf_server.netconf_change_server import NetconfServer
 from netconf_server.sysrepo_interface.config_change_subscriber import ConfigChangeSubscriber
 
 logger = logging.getLogger("netconf_saver")
