@@ -17,23 +17,34 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
-import logging
 
-from netconf_server.sysrepo_interface.config_change_data import ConfigChangeData
-
-logger = logging.getLogger("netconf_saver")
+import logging as sys_logging
+from flask import Flask, logging, make_response, Response
 
 
-class NetconfServer(object):
+class NetconfRestServer:
+    _rest_server: Flask = Flask("server")
+    sys_logging.basicConfig(level=sys_logging.DEBUG)
+    logger = logging.create_logger(_rest_server)
 
-    def __init__(self, subscriptions: list):
-        self.subscriptions = subscriptions
+    def __init__(self, host='0.0.0.0', port=6555):
+        self._host = host
+        self._port = port
 
-    def run(self, session):
-        for subscription in self.subscriptions:
-            subscription.callback_function = self.__on_module_configuration_change
-            subscription.subscribe_on_model_change(session)
+    def start(self):
+        Flask.run(
+            NetconfRestServer._rest_server,
+            host=self._host,
+            port=self._port
+        )
 
     @staticmethod
-    def __on_module_configuration_change(config_change_data: ConfigChangeData):
-        logger.info("Received module changed: %s , %s " % (config_change_data.event, config_change_data.changes))
+    @_rest_server.route("/healthcheck")
+    def __health_check():
+        return "UP"
+
+    @staticmethod
+    def __create_http_response(code, message):
+        return make_response(
+            Response(message, headers={'Content-Type': 'application/json'}),
+            code)

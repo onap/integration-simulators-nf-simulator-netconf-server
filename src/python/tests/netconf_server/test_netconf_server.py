@@ -20,7 +20,7 @@
 import unittest
 from unittest.mock import MagicMock
 
-from netconf_server.netconf_server_factory import NetconfServerFactory
+from netconf_server.netconf_change_listener_factory import NetconfChangeListenerFactory
 from tests.mocs.mocked_session import MockedSession
 
 
@@ -29,7 +29,7 @@ class TestNetconfServer(unittest.TestCase):
     def test_should_create_and_run_netconf_server_with_one_model(self):
         # given
         modules_to_subscribe_names = ["test"]
-        server = NetconfServerFactory(modules_to_subscribe_names).create()
+        server = NetconfChangeListenerFactory(modules_to_subscribe_names).create()
         session = MockedSession()
         session.subscribe_module_change = MagicMock()
 
@@ -42,7 +42,7 @@ class TestNetconfServer(unittest.TestCase):
     def test_should_create_and_run_netconf_server_with_multiple_models(self):
         # given
         modules_to_subscribe_names = ["test", "test2", "test3"]
-        server = NetconfServerFactory(modules_to_subscribe_names).create()
+        server = NetconfChangeListenerFactory(modules_to_subscribe_names).create()
         session = MockedSession()
         session.subscribe_module_change = MagicMock()
 

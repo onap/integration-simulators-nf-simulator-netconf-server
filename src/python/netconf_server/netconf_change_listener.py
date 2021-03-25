@@ -17,6 +17,23 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import logging
 
-sysrepo==0.4.2
-Flask==1.1.1
+from netconf_server.sysrepo_interface.config_change_data import ConfigChangeData
+
+logger = logging.getLogger("netconf_saver")
+
+
+class NetconfChangeListener(object):
+
+    def __init__(self, subscriptions: list):
+        self.subscriptions = subscriptions
+
+    def run(self, session):
+        for subscription in self.subscriptions:
+            subscription.callback_function = self.__on_module_configuration_change
+            subscription.subscribe_on_model_change(session)
+
+    @staticmethod
+    def __on_module_configuration_change(config_change_data: ConfigChangeData):
+        logger.info("Received module changed: %s , %s " % (config_change_data.event, config_change_data.changes))

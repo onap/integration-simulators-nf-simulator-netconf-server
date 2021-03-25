@@ -19,22 +19,22 @@
 ###
 import logging
 
-from netconf_server.netconf_server import NetconfServer
+from netconf_server.netconf_change_listener import NetconfChangeListener
 from netconf_server.sysrepo_interface.config_change_subscriber import ConfigChangeSubscriber
 
 logger = logging.getLogger("netconf_saver")
 
 
-class NetconfServerFactory(object):
+class NetconfChangeListenerFactory(object):
 
     def __init__(self, modules_to_subscribe_names: list):
         self.modules_to_subscribe_names = modules_to_subscribe_names
 
-    def create(self) -> NetconfServer:
+    def create(self) -> NetconfChangeListener:
         subscriptions = list()
         for module_name in self.modules_to_subscribe_names:
             subscriptions.append(
                 ConfigChangeSubscriber(module_name)
             )
-        return NetconfServer(subscriptions)
+        return NetconfChangeListener(subscriptions)
 
