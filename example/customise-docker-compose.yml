@@ -5,6 +5,12 @@ services:
   netconf-server:
     container_name: netconf-server
     image: onap/org.onap.integration.nfsimulator.netconfserver:latest
+    environment:
+     - ENABLE_TLS=true
+     - MODELS_CONFIGURATION_FILE_NAME=example-models-configuration.ini
+    volumes:
+     - ./example_models:/resources/models
+     - ./example_certs:/resources/certs
     ports:
      - "830:830"
      - "6513:6513"

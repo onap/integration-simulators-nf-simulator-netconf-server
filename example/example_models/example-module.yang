@@ -1,0 +1,10 @@
+module example-module {
+  namespace "http://onap.org/example-module";
+  prefix config;
+  container config {
+    config true;
+    leaf itemValue1 {type uint32;}
+    leaf itemValue2 {type uint32;}
+    leaf itemValue3 {type uint32;}
+  }
+}

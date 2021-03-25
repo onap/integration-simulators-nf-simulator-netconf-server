@@ -2,6 +2,7 @@
 This server uses sysrepo to simulate network configuration.
 It is base od sysrepo-netopeer2 image.
 
+
 ## User guide
 ### starting server
 In order to start server use docker-compose located in root catalog:
@@ -10,7 +11,7 @@ In order to start server use docker-compose located in root catalog:
 ```
 or run image using docker:
 ```shell
-  docker run -it -p 830:830 -p 6513:6513 onap/org.onap.integration.simulators.netconf-server:latest
+  docker run -it -p 830:830 -p 6513:6513 -p 6555:6555 onap/org.onap.integration.simulators.netconf-server:latest
 ```
 
 ### using server
@@ -18,12 +19,13 @@ Server allows:
  - installing custom configuration models on start up.
  - changing configuration of that modules on runtime.
 
-Config can be changed with use of **SSH, be default expose on port 830**
-and **TLS, be default exposed on port 6513**.
+Configuration of models can be changed with use of **SSH, be default expose on port 830**, 
+**TLS, be default exposed on port 6513** and **REST API,  be default expose on port 6555**.
 - SSH works "out of the box" with a username and password *netconf*.
 - **TLS is disabled be default**, 
   in order to enable it, set environment variable `ENABLE_TLS=true`.
-  More about TLS in ***TLS*** section. 
+  More about TLS in ***TLS*** section.
+- REST API works "out of the box", more about it in ***REST API*** section.
 
 ### custom models
 new models are loaded on the image start up from catalog `/resources/models`.
@@ -34,7 +36,8 @@ More about that file in ***config change subscription*** section.
 In order to load custom models on start up,
 volume with models and configuration file, should be mounted to `/resources/models` directory.
 It can be done in docker-compose, by putting 
-`./path/to/cusom/models:/resources/models` in *volumes* section.
+`./path/to/cusom/models:/resources/models` in ***volumes*** section.
+Examples of custom models configuration can be found in `example` directory. 
 
 ### TLS
 TLS in disabled be default with environment variable `ENABLE_TLS` set to false.
@@ -42,6 +45,7 @@ In order to enable TLS, that environment variable need to be set to `true`
 **on container start up**.
 It can be done in docker-compose, 
 by putting `ENABLE_TLS=true` in *environment* section.
+Example of that TLS configuration can be found in `example` directory.
 
 #### custom certificate
 When TLS is enabled server will use auto generated certificates, be default.
@@ -50,6 +54,7 @@ are located in `/resources/certs` directory.
 Certificates are loaded during image start up.
 **In order to use custom certs**
 volume with certificates needs to be mounted to `/resources/certs` directory.
+Example of that custom certificates configuration can be found in `example` directory.
 In this volume following files are required, **named accordingly**:
 - **ca.crt** - CA/Root certificate
 - **client.crt** - client certificate
@@ -71,11 +76,17 @@ Configuration file should be formatted in proper way:
 [SUBSCRIPTION]
 models = my-model-1,my-model-2,my-model-3
 ```
-Custom modules, to subscribe to, should be separated with comma.  
+Custom modules, to subscribe to, should be separated with comma.
+Example of that custom config change subscription can be found in `example` directory.
+
+### REST API
+Netconf server provides REST interface, with enpoints:
+- *GET* `/healthcheck` returns 200 "UP" if server is up and running
 
 ### logging
 Netconf server print all logs on to the console.
 Logs from python application are also stored in file `/logs/netconf_saver.log`
+
 
 ## Development guide 
 ### building image
