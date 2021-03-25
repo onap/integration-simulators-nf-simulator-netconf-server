@@ -17,40 +17,39 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
-import asyncio
 import sys
 import logging
 from netconf_server.netconf_rest_server import NetconfRestServer
 from netconf_server.sysrepo_configuration.sysrepo_configuration_manager import SysrepoConfigurationManager
 
-from netconf_server.netconf_change_listener import NetconfChangeListener
-from netconf_server.netconf_change_listener_factory import NetconfChangeListenerFactory
-from netconf_server.sysrepo_configuration.sysrepo_configuration_loader import SysrepoConfigurationLoader, \
-    ConfigLoadingException
+from netconf_server.sysrepo_configuration.sysrepo_configuration_loader import ConfigLoadingException
 from netconf_server.sysrepo_interface.sysrepo_client import SysrepoClient
 
 logging.basicConfig(
-    handlers=[logging.StreamHandler(), logging.FileHandler("/logs/netconf_change_listener.log")],
+    handlers=[logging.StreamHandler(), logging.FileHandler("/logs/netconf_rest_server.log")],
     level=logging.DEBUG
 )
-logger = logging.getLogger("netconf_server_application")
+logger = logging.getLogger("netconf_rest_application")
 
 
-def run_server_forever(session, connection, change_listener: NetconfChangeListener):
-    change_listener.run(session)
-    asyncio.get_event_loop().run_forever()
+def start_rest_server(session, connection, server_rest: NetconfRestServer):
+    sysrepo_cfg_manager = create_conf_manager(session, connection)
+    server_rest.start(sysrepo_cfg_manager)
 
 
-def create_change_listener() -> NetconfChangeListener:
-    configuration = SysrepoConfigurationLoader.load_configuration(sys.argv[1])
-    return NetconfChangeListenerFactory(configuration.models_to_subscribe_to).create()
+def create_rest_server() -> NetconfRestServer:
+    return NetconfRestServer()
+
+
+def create_conf_manager(session, connection) -> SysrepoConfigurationManager:
+    return SysrepoConfigurationManager(session, connection)
 
 
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
         try:
-            netconf_change_listener = create_change_listener()
-            SysrepoClient().run_in_session(run_server_forever, netconf_change_listener)
+            rest_server = create_rest_server()
+            SysrepoClient().run_in_session(start_rest_server, rest_server)
         except ConfigLoadingException:
             logger.error("File to load configuration from file %s" % sys.argv[1])
     else:

@@ -24,6 +24,11 @@ if [ "$#" -eq 2 ]; then
   echo "Starting NETCONF server"
   python3 ./application/netconf_server_application.py $1/$2 &
 
+
+  echo "Starting NETCONF Rest server"
+  python3 ./application/netconf_rest_application.py $1/$2 &
+
+
 else
     echo "Missing argument: path to file with models to subscribe to."
 fi

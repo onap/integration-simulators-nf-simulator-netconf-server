@@ -8,6 +8,7 @@ COPY ./models /resources/models
 COPY ./scripts ./scripts
 COPY ./src/python/netconf_server ./application/netconf_server
 COPY ./src/python/netconf_server_application.py ./application/netconf_server_application.py
+COPY ./src/python/netconf_rest_application.py ./application/netconf_rest_application.py
 COPY ./src/python/requirements.txt ./application/requirements.txt
 COPY ./src/python/setup.py ./application/setup.py
 
