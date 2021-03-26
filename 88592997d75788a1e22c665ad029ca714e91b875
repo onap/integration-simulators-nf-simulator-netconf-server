@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d241c9fb_de739dd4",
+        "filename": "src/python/netconf_change_listener_application.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-03-26T13:33:04Z",
+      "side": 1,
+      "message": "please change to \"netconf_change_listener\"",
+      "range": {
+        "startLine": 36,
+        "startChar": 27,
+        "endLine": 36,
+        "endChar": 55
+      },
+      "revId": "88592997d75788a1e22c665ad029ca714e91b875",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
