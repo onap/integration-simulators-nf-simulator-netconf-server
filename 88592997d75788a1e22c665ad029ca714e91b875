@@ -22,6 +22,30 @@
       "revId": "88592997d75788a1e22c665ad029ca714e91b875",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c7b950a_f448f9d6",
+        "filename": "src/python/netconf_change_listener_application.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2021-03-26T13:38:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d241c9fb_de739dd4",
+      "range": {
+        "startLine": 36,
+        "startChar": 27,
+        "endLine": 36,
+        "endChar": 55
+      },
+      "revId": "88592997d75788a1e22c665ad029ca714e91b875",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
