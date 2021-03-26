@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13dfaec5_dba621c3",
+        "filename": "scripts/run-netconf-server-application.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-03-26T11:56:04Z",
+      "side": 1,
+      "message": "please change to  Starting NETCONF Change listener",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 31
+      },
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec74fe3d_badff69f",
+        "filename": "scripts/run-netconf-server-application.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-03-26T11:56:04Z",
+      "side": 1,
+      "message": "please rename to netconf_change_listener_application.py",
+      "range": {
+        "startLine": 25,
+        "startChar": 24,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cda72bb_6ba879b3",
+        "filename": "src/python/tests/netconf_server/sysrepo_configuration/test_sysrepo_configuration_manager_.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-03-26T11:56:04Z",
+      "side": 1,
+      "message": "is that method used anywhere, if not please remove",
+      "range": {
+        "startLine": 8,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
