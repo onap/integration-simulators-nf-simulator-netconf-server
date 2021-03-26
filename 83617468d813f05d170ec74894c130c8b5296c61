@@ -116,6 +116,24 @@
     },
     {
       "key": {
+        "uuid": "7503c43e_d0981739",
+        "filename": "src/python/netconf_server/sysrepo_configuration/sysrepo_configuration_manager.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-03-26T12:32:21Z",
+      "side": 1,
+      "message": "we want to avoid types when it comes to class from sysrepo library, to minimize depending on that library",
+      "parentUuid": "22f884b5_94d97b58",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22ab46fd_63446f4b",
         "filename": "src/python/netconf_server/sysrepo_configuration/sysrepo_configuration_manager.py",
         "patchSetId": 1
