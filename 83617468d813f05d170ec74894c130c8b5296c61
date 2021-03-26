@@ -48,6 +48,108 @@
     },
     {
       "key": {
+        "uuid": "99645cd9_33777b56",
+        "filename": "scripts/run-netconf-server-application.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-26T12:15:57Z",
+      "side": 1,
+      "message": "replace $1 and $2 by named variables",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7f4c0e2_32cd336a",
+        "filename": "src/python/netconf_rest_application.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-26T12:15:57Z",
+      "side": 1,
+      "message": "above you have netconf_rest_server",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1910c688_04719ad6",
+        "filename": "src/python/netconf_rest_application.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-26T12:15:57Z",
+      "side": 1,
+      "message": "do we have such exception in this case?",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22f884b5_94d97b58",
+        "filename": "src/python/netconf_server/sysrepo_configuration/sysrepo_configuration_manager.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-26T12:15:57Z",
+      "side": 1,
+      "message": "add python types",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22ab46fd_63446f4b",
+        "filename": "src/python/netconf_server/sysrepo_configuration/sysrepo_configuration_manager.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-26T12:15:57Z",
+      "side": 1,
+      "message": "add python types",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34abb68c_1bb903ea",
+        "filename": "src/python/netconf_server/sysrepo_configuration/sysrepo_configuration_manager.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-26T12:15:57Z",
+      "side": 1,
+      "message": "add python types",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1cda72bb_6ba879b3",
         "filename": "src/python/tests/netconf_server/sysrepo_configuration/test_sysrepo_configuration_manager_.py",
         "patchSetId": 1

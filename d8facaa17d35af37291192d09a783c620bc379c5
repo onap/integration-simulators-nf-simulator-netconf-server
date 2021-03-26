@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "374a179b_fe22a093",
+        "filename": "scripts/run-netconf-server-application.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-26T12:15:57Z",
+      "side": 0,
+      "message": "change information to: [ERROR] \"Invalid number of arguments. Please provide all required arguments.\"",
+      "revId": "d8facaa17d35af37291192d09a783c620bc379c5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
