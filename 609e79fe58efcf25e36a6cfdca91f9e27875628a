@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "966c06f2_13490f7f",
+        "filename": "src/python/tests/netconf_server/sysrepo_configuration/test_sysrepo_configuration_manager_.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-03-26T13:21:38Z",
+      "side": 1,
+      "message": "pls provide valid class name. It should be  TestSysrepoConfigurationManager",
+      "revId": "609e79fe58efcf25e36a6cfdca91f9e27875628a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
