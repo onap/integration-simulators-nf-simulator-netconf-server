@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4b87bf97_1cecdb65",
+        "filename": "scripts/run-netconf-server-application.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2021-03-26T12:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13dfaec5_dba621c3",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 31
+      },
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec74fe3d_badff69f",
         "filename": "scripts/run-netconf-server-application.sh",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "41afab56_10a1bb27",
+        "filename": "scripts/run-netconf-server-application.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2021-03-26T12:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec74fe3d_badff69f",
+      "range": {
+        "startLine": 25,
+        "startChar": 24,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99645cd9_33777b56",
         "filename": "scripts/run-netconf-server-application.sh",
         "patchSetId": 1
@@ -62,6 +110,24 @@
       "revId": "83617468d813f05d170ec74894c130c8b5296c61",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c441c4aa_55f05f4b",
+        "filename": "scripts/run-netconf-server-application.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2021-03-26T12:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99645cd9_33777b56",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "725e26b4_cac53d65",
+        "filename": "src/python/netconf_rest_application.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2021-03-26T12:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7f4c0e2_32cd336a",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1910c688_04719ad6",
         "filename": "src/python/netconf_rest_application.py",
         "patchSetId": 1
@@ -96,6 +180,24 @@
       "revId": "83617468d813f05d170ec74894c130c8b5296c61",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa3eba92_607f2271",
+        "filename": "src/python/netconf_rest_application.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2021-03-26T12:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1910c688_04719ad6",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -168,6 +270,24 @@
     },
     {
       "key": {
+        "uuid": "195d6080_05c74f39",
+        "filename": "src/python/netconf_server/sysrepo_configuration/sysrepo_configuration_manager.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2021-03-26T12:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34abb68c_1bb903ea",
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cda72bb_6ba879b3",
         "filename": "src/python/tests/netconf_server/sysrepo_configuration/test_sysrepo_configuration_manager_.py",
         "patchSetId": 1
@@ -188,6 +308,30 @@
       "revId": "83617468d813f05d170ec74894c130c8b5296c61",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bf8c40d_f9c01f3c",
+        "filename": "src/python/tests/netconf_server/sysrepo_configuration/test_sysrepo_configuration_manager_.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6482
+      },
+      "writtenOn": "2021-03-26T12:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cda72bb_6ba879b3",
+      "range": {
+        "startLine": 8,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "83617468d813f05d170ec74894c130c8b5296c61",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
