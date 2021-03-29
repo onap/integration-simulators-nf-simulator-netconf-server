@@ -27,11 +27,11 @@ class NetconfAppConfiguration(object):
             kafka_port = args[3]
             kafka_topic = args[4]
 
-            return NetconfAppConfiguration(configuration_file, kafka_host_name, kafka_port, kafka_topic), None
+            return NetconfAppConfiguration(configuration_file, kafka_host_name, int(kafka_port), kafka_topic), None
         else:
             return None, "Invalid number of arguments. Please provide all required arguments."
 
-    def __init__(self, module_configuration_file_path: str, kafka_host_name: str, kafka_port: str, kafka_topic: str):
+    def __init__(self, module_configuration_file_path: str, kafka_host_name: str, kafka_port: int, kafka_topic: str):
         self.module_configuration_file_path = module_configuration_file_path
         self.kafka_host_name = kafka_host_name
         self.kafka_port = kafka_port

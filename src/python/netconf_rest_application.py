@@ -33,9 +33,9 @@ logging.basicConfig(
 logger = logging.getLogger("netconf_rest_application")
 
 
-def start_rest_server(session, connection, server_rest: NetconfRestServer):
+def start_rest_server(session, connection, server_rest: NetconfRestServer, netconf_app_configuration: NetconfAppConfiguration):
     sysrepo_cfg_manager = create_conf_manager(session, connection)
-    server_rest.start(sysrepo_cfg_manager)
+    server_rest.start(sysrepo_cfg_manager, netconf_app_configuration)
 
 
 def create_rest_server() -> NetconfRestServer:
@@ -52,6 +52,6 @@ if __name__ == "__main__":
     if app_configuration:
         logger.info("Netconf rest application configuration: {}".format(app_configuration))
         rest_server = create_rest_server()
-        SysrepoClient().run_in_session(start_rest_server, rest_server)
+        SysrepoClient().run_in_session(start_rest_server, rest_server, app_configuration)
     else:
         logger.error(error)

@@ -18,8 +18,10 @@
 # ============LICENSE_END=========================================================
 ###
 
-import logging as sys_logging
 from flask import Flask, logging, make_response, Response, request
+
+from netconf_server.netconf_app_configuration import NetconfAppConfiguration
+from netconf_server.netconf_kafka_client import NetconfKafkaClient
 from netconf_server.sysrepo_configuration.sysrepo_configuration_manager import SysrepoConfigurationManager
 
 
@@ -27,13 +29,17 @@ class NetconfRestServer:
     _rest_server: Flask = Flask("server")
     logger = logging.create_logger(_rest_server)
     _configuration_manager: SysrepoConfigurationManager
+    _app_configuration: NetconfAppConfiguration
 
     def __init__(self, host='0.0.0.0', port=6555):
         self._host = host
         self._port = port
 
-    def start(self, configuration_manager: SysrepoConfigurationManager):
+    def start(self,
+              configuration_manager: SysrepoConfigurationManager,
+              netconf_app_configuration: NetconfAppConfiguration):
         NetconfRestServer._configuration_manager = configuration_manager
+        NetconfRestServer._app_configuration = netconf_app_configuration
         Flask.run(
             NetconfRestServer._rest_server,
             host=self._host,
@@ -42,12 +48,31 @@ class NetconfRestServer:
 
     @staticmethod
     @_rest_server.route("/healthcheck")
-    def __health_check():
+    def _health_check():
         return "UP"
 
     @staticmethod
+    @_rest_server.route("/readiness")
+    def _readiness_check():
+        try:
+            NetconfRestServer.__try_connect_to_kafka()
+            return Response('Ready', status=200)
+        except Exception as e:
+            NetconfRestServer.logger.error("Unable to create a Kafka client", e)
+            return Response('Not Ready', status=503)
+
+    # if Kafka is up & running and hostname with port is proper, then client will be created; otherwise
+    # an error will be reported
+    @staticmethod
+    def __try_connect_to_kafka():
+        NetconfKafkaClient.create(
+            host=NetconfRestServer._app_configuration.kafka_host_name,
+            port=NetconfRestServer._app_configuration.kafka_port
+        )
+
+    @staticmethod
     @_rest_server.route("/change_config/<path:module_name>", methods=['POST'])
-    def __change_config(module_name):
+    def _change_config(module_name):
         config_data = request.data.decode("utf-8")
         NetconfRestServer._configuration_manager.change_configuration(config_data, module_name)
         return NetconfRestServer.__create_http_response(202, "Accepted")
