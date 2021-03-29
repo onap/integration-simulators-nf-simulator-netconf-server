@@ -19,10 +19,11 @@
 ###
 import sys
 import logging
+
+from netconf_server.netconf_app_configuration import NetconfAppConfiguration
 from netconf_server.netconf_rest_server import NetconfRestServer
 from netconf_server.sysrepo_configuration.sysrepo_configuration_manager import SysrepoConfigurationManager
 
-from netconf_server.sysrepo_configuration.sysrepo_configuration_loader import ConfigLoadingException
 from netconf_server.sysrepo_interface.sysrepo_client import SysrepoClient
 
 logging.basicConfig(
@@ -46,8 +47,11 @@ def create_conf_manager(session, connection) -> SysrepoConfigurationManager:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) >= 2:
+    app_configuration, error = NetconfAppConfiguration.get_configuration(sys.argv)  # type: NetconfAppConfiguration, str
+
+    if app_configuration:
+        logger.info("Netconf rest application configuration: {}".format(app_configuration))
         rest_server = create_rest_server()
         SysrepoClient().run_in_session(start_rest_server, rest_server)
     else:
-        logger.error("Missing path to file with configuration argument required to start netconf server.")
+        logger.error(error)

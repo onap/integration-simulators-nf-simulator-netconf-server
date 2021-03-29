@@ -20,8 +20,10 @@
 import asyncio
 import sys
 import logging
-from netconf_server.netconf_rest_server import NetconfRestServer
-from netconf_server.sysrepo_configuration.sysrepo_configuration_manager import SysrepoConfigurationManager
+
+from typing import Tuple
+
+from netconf_server.netconf_app_configuration import NetconfAppConfiguration
 
 from netconf_server.netconf_change_listener import NetconfChangeListener
 from netconf_server.netconf_change_listener_factory import NetconfChangeListenerFactory
@@ -41,17 +43,20 @@ def run_server_forever(session, connection, change_listener: NetconfChangeListen
     asyncio.get_event_loop().run_forever()
 
 
-def create_change_listener() -> NetconfChangeListener:
-    configuration = SysrepoConfigurationLoader.load_configuration(sys.argv[1])
+def create_change_listener(module_configuration_file_path: str) -> NetconfChangeListener:
+    configuration = SysrepoConfigurationLoader.load_configuration(module_configuration_file_path)
     return NetconfChangeListenerFactory(configuration.models_to_subscribe_to).create()
 
 
 if __name__ == "__main__":
-    if len(sys.argv) >= 2:
+    app_configuration, error = NetconfAppConfiguration.get_configuration(sys.argv)  # type: NetconfAppConfiguration, str
+
+    if app_configuration:
+        logger.info("Netconf change listener application configuration: {}".format(app_configuration))
         try:
-            netconf_change_listener = create_change_listener()
+            netconf_change_listener = create_change_listener(app_configuration.module_configuration_file_path)
             SysrepoClient().run_in_session(run_server_forever, netconf_change_listener)
         except ConfigLoadingException:
-            logger.error("File to load configuration from file %s" % sys.argv[1])
+            logger.error("File to load configuration from file %s" % app_configuration.module_configuration_file_path)
     else:
-        logger.error("Missing path to file with configuration argument required to start netconf server.")
+        logger.error(error)

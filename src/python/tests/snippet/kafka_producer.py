@@ -17,7 +17,26 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import logging
 
-pytest==6.2.2
-kafka-python==2.0.2
+from netconf_server.netconf_kafka_client import NetconfKafkaClient
 
+NUMBER_OF_MESSAGES = 1000
+
+logging.basicConfig(filename='kafka_producer.log', level=logging.DEBUG)
+
+if __name__ == "__main__":
+
+    client = NetconfKafkaClient.create(
+        host="localhost",
+        port=9092
+    )
+
+    for number in range(NUMBER_OF_MESSAGES):
+        print("Send {}".format(number))
+        data = {'number': number}
+        resp = client.send(
+            topic='config',
+            value=data
+        )
+        print("Response: {}".format(resp.get(timeout=4)))
