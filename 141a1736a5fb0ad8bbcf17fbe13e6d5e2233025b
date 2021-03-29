@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c0169fc_602fad5f",
+        "filename": "src/python/netconf_server/netconf_kafka_client.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-03-29T07:00:40Z",
+      "side": 1,
+      "message": "I think we should not override application logging configuration set in \"netconf_rest_application.py\" and \"netconf_change_listener_application.py\"",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "141a1736a5fb0ad8bbcf17fbe13e6d5e2233025b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
