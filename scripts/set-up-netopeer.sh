@@ -19,11 +19,17 @@
 # ============LICENSE_END=========================================================
 ###
 
-if [ "$#" -ge 1 ]; then
+echo "[INFO] Starting NETCONF Server app configuration ..."
+
+if [ "$#" -gt 1 ]; then
 
   ## Set up variable
   SCRIPTS_DIR=$PWD/"$(dirname $0)"
   enable_tls=${ENABLE_TLS:-false}
+  kafka_host_name=${KAFKA_HOST_NAME:-"localhost"}
+  kafka_port=${KAFKA_PORT:-9092}
+  kafka_topic=${KAFKA_TOPIC=-"config:1:1"}
+  models_config_path=$1
   models_configuration_file_name=${MODELS_CONFIGURATION_FILE_NAME:-models-configuration.ini}
 
   ## Install all modules from given directory
@@ -32,19 +38,22 @@ if [ "$#" -ge 1 ]; then
   ## If TLS is enabled start initializing certificates
   if [[ "$enable_tls" == "true" ]]; then
     if [ "$#" -ge 2 ]; then
-      echo "initializing TLS"
+      echo "[INFO] Initializing TLS"
       $SCRIPTS_DIR/install-tls-with-custom-certificates.sh  $SCRIPTS_DIR/tls $2
     else
-      echo "Missing second argument: path to file with certificates for TLS."
+      echo "[ERROR] Missing second argument: path to file with certificates for TLS."
     fi
   fi
 
+  echo "[INFO] NETCONF Server configuration finished."
+
   ## Run netconf server application
-  $SCRIPTS_DIR/run-netconf-server-application.sh $1 $models_configuration_file_name
+  $SCRIPTS_DIR/run-netconf-server-application.sh $models_config_path $models_configuration_file_name $kafka_host_name $kafka_port $kafka_topic
 
   ## Run sysrepo supervisor
+  echo "[INFO] Starting Netopeer Server ..."
   /usr/bin/supervisord -c /etc/supervisord.conf
 
 else
-  echo "Missing first argument: path to file with YANG models."
+  echo "[ERROR] Unable to configure application. Provide all required arguments."
 fi

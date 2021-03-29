@@ -17,3 +17,18 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+import logging
+
+from netconf_server.netconf_kafka_client import NetconfKafkaClient
+
+logging.basicConfig(filename='kafka_consumer.log', level=logging.DEBUG)
+
+if __name__ == "__main__":
+
+    client = NetconfKafkaClient.create(
+        host="localhost",
+        port=9092
+    )
+
+    messages = client.get_all_messages_from(topic='config')
+    print("Received {}".format(messages))

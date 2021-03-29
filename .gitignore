@@ -4,3 +4,7 @@
 **/logs
 **/venv
 **/__pycache__
+
+.tox/
+
+netconf_kafka_client.log

@@ -19,19 +19,20 @@
 # ============LICENSE_END=========================================================
 ###
 
-if [ "$#" -eq 2 ]; then
+if [ "$#" -eq 5 ]; then
 
   ## Set up variable
   MODELS_CONFIG_PATH=$1
   MODELS_CONFIG_NAME=$2
+  KAFKA_HOST_NAME=$3
+  KAFKA_HOST_PORT=$4
+  KAFKA_TOPIC=$5
 
-  echo "Starting NETCONF Change listener"
-  python3 ./application/netconf_change_listener_application.py $MODELS_CONFIG_PATH/$MODELS_CONFIG_NAME &
+  echo "[INFO] Starting NETCONF Change listener"
+  python3 ./application/netconf_change_listener_application.py $MODELS_CONFIG_PATH/$MODELS_CONFIG_NAME $KAFKA_HOST_NAME $KAFKA_HOST_PORT $KAFKA_TOPIC &
 
-
-  echo "Starting NETCONF Rest server"
-  python3 ./application/netconf_rest_application.py $MODELS_CONFIG_PATH/$MODELS_CONFIG_NAME &
-
+  echo "[INFO] Starting NETCONF Rest server"
+  python3 ./application/netconf_rest_application.py $MODELS_CONFIG_PATH/$MODELS_CONFIG_NAME $KAFKA_HOST_NAME $KAFKA_HOST_PORT $KAFKA_TOPIC &
 
 else
     echo "[ERROR] Invalid number of arguments. Please provide all required arguments."
