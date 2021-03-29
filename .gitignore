@@ -4,3 +4,5 @@
 **/logs
 **/venv
 **/__pycache__
+
+.tox/
