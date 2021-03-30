@@ -18,9 +18,8 @@
 # ============LICENSE_END=========================================================
 ###
 
-from flask import Flask, logging, make_response, Response, request
+from flask import Flask, logging, make_response, Response, request, jsonify
 
-from netconf_server.netconf_app_configuration import NetconfAppConfiguration
 from netconf_server.netconf_kafka_client import NetconfKafkaClient
 from netconf_server.sysrepo_configuration.sysrepo_configuration_manager import SysrepoConfigurationManager
 
@@ -29,7 +28,8 @@ class NetconfRestServer:
     _rest_server: Flask = Flask("server")
     logger = logging.create_logger(_rest_server)
     _configuration_manager: SysrepoConfigurationManager
-    _app_configuration: NetconfAppConfiguration
+    _kafka_topic: str
+    _kafka_client: NetconfKafkaClient
 
     def __init__(self, host='0.0.0.0', port=6555):
         self._host = host
@@ -37,9 +37,11 @@ class NetconfRestServer:
 
     def start(self,
               configuration_manager: SysrepoConfigurationManager,
-              netconf_app_configuration: NetconfAppConfiguration):
+              kafka_client: NetconfKafkaClient,
+              kafka_topic: str):
         NetconfRestServer._configuration_manager = configuration_manager
-        NetconfRestServer._app_configuration = netconf_app_configuration
+        NetconfRestServer._kafka_client = kafka_client
+        NetconfRestServer._kafka_topic = kafka_topic
         Flask.run(
             NetconfRestServer._rest_server,
             host=self._host,
@@ -54,21 +56,10 @@ class NetconfRestServer:
     @staticmethod
     @_rest_server.route("/readiness")
     def _readiness_check():
-        try:
-            NetconfRestServer.__try_connect_to_kafka()
+        if NetconfRestServer._kafka_client:
             return Response('Ready', status=200)
-        except Exception as e:
-            NetconfRestServer.logger.error("Unable to create a Kafka client", e)
+        else:
             return Response('Not Ready', status=503)
-
-    # if Kafka is up & running and hostname with port is proper, then client will be created; otherwise
-    # an error will be reported
-    @staticmethod
-    def __try_connect_to_kafka():
-        NetconfKafkaClient.create(
-            host=NetconfRestServer._app_configuration.kafka_host_name,
-            port=NetconfRestServer._app_configuration.kafka_port
-        )
 
     @staticmethod
     @_rest_server.route("/change_config/<path:module_name>", methods=['POST'])
@@ -78,11 +69,16 @@ class NetconfRestServer:
         return NetconfRestServer.__create_http_response(202, "Accepted")
 
     @staticmethod
+    @_rest_server.route("/change_history")
+    def _change_history():
+        history = NetconfRestServer._kafka_client.get_all_messages_from(NetconfRestServer._kafka_topic)
+        return jsonify(history), 200
+
+    @staticmethod
     @_rest_server.route("/get_config/<path:module_name>", methods=['GET'])
     def _get_config(module_name):
         data = NetconfRestServer._configuration_manager.get_configuration(module_name)
         return NetconfRestServer.__create_http_response(200, data)
-
 
     @staticmethod
     def __create_http_response(code, message):
