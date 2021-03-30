@@ -38,6 +38,7 @@ class NetconfAppConfiguration(object):
         self.kafka_topic = kafka_topic
 
     def __str__(self):
-        return "NetconfAppConfiguration[configuration_file -> '{}', kafka_host_name -> '{}', kafka_port -> '{}', kafka_topic -> '{}']"\
+        return "NetconfAppConfiguration[configuration_file -> '{}', " \
+               "kafka_host_name -> '{}', kafka_port -> '{}', kafka_topic -> '{}']"\
             .format(self.module_configuration_file_path, self.kafka_host_name, self.kafka_port, self.kafka_topic)
 

@@ -18,7 +18,25 @@
 # ============LICENSE_END=========================================================
 ###
 
-sysrepo==0.4.2
-Flask==1.1.1
-kafka-python==2.0.2
-retry==0.9.2
+import sysrepo
+
+
+class SysrepoMessage(object):
+
+    def __init__(self, change):
+        self._change = change
+
+    def is_modified(self):
+        return isinstance(self._change, sysrepo.ChangeModified)
+
+    def is_created(self):
+        return isinstance(self._change, sysrepo.ChangeCreated)
+
+    def value(self):
+        return self._change.value
+
+    def xpath(self):
+        return self._change.xpath
+
+    def prev_val(self):
+        return self._change.prev_val

@@ -21,6 +21,7 @@ import sys
 import logging
 
 from netconf_server.netconf_app_configuration import NetconfAppConfiguration
+from netconf_server.netconf_kafka_client import provide_configured_kafka_client
 from netconf_server.netconf_rest_server import NetconfRestServer
 from netconf_server.sysrepo_configuration.sysrepo_configuration_manager import SysrepoConfigurationManager
 
@@ -28,14 +29,18 @@ from netconf_server.sysrepo_interface.sysrepo_client import SysrepoClient
 
 logging.basicConfig(
     handlers=[logging.StreamHandler(), logging.FileHandler("/logs/netconf_rest_application.log")],
-    level=logging.DEBUG
+    level=logging.INFO
 )
 logger = logging.getLogger("netconf_rest_application")
 
 
 def start_rest_server(session, connection, server_rest: NetconfRestServer, netconf_app_configuration: NetconfAppConfiguration):
     sysrepo_cfg_manager = create_conf_manager(session, connection)
-    server_rest.start(sysrepo_cfg_manager, netconf_app_configuration)
+    kafka_client = provide_configured_kafka_client(
+        netconf_app_configuration.kafka_host_name,
+        netconf_app_configuration.kafka_port
+    )
+    server_rest.start(sysrepo_cfg_manager, kafka_client, netconf_app_configuration.kafka_topic)
 
 
 def create_rest_server() -> NetconfRestServer:
