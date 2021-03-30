@@ -19,7 +19,7 @@
 ###
 import logging
 from json import dumps, loads
-from typing import Callable
+from typing import Callable, Any
 
 from kafka import KafkaProducer, KafkaConsumer
 from kafka.producer.future import FutureRecordMetadata
@@ -43,7 +43,7 @@ def provide_kafka_consumer(topic: str, server: str) -> KafkaConsumer:
 class NetconfKafkaClient(object):
 
     @staticmethod
-    def create(host: str, port: int) -> object:
+    def create(host: str, port: int):
         server = "{}:{}".format(host, port)
         producer = KafkaProducer(
             bootstrap_servers=server,
@@ -59,7 +59,7 @@ class NetconfKafkaClient(object):
         self._producer = producer
         self._get_kafka_consumer = get_kafka_consumer_func
 
-    def send(self, topic: str, value: str) -> FutureRecordMetadata:
+    def send(self, topic: str, value: Any) -> FutureRecordMetadata:
         return self._producer.send(
             topic=topic,
             value=value

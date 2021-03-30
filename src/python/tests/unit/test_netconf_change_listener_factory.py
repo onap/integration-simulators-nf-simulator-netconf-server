@@ -20,16 +20,23 @@
 import unittest
 from unittest.mock import MagicMock
 
+import sys
+
+# we need to mock sysrepo library. It is not possible to install it in the newest version of the Linux distribution
+sys.modules['sysrepo'] = MagicMock()
+
+from netconf_server.netconf_app_configuration import NetconfAppConfiguration
 from netconf_server.netconf_change_listener_factory import NetconfChangeListenerFactory
 from tests.mocs.mocked_session import MockedSession
 
 
-class TestNetconfServer(unittest.TestCase):
+class TestNetconfChangeListenerFactory(unittest.TestCase):
 
     def test_should_create_and_run_netconf_server_with_one_model(self):
         # given
         modules_to_subscribe_names = ["test"]
-        server = NetconfChangeListenerFactory(modules_to_subscribe_names).create()
+        factory = TestNetconfChangeListenerFactory._given_netconf_change_listener_factory(modules_to_subscribe_names)
+        server = factory.create()
         session = MockedSession()
         session.subscribe_module_change = MagicMock()
 
@@ -42,7 +49,8 @@ class TestNetconfServer(unittest.TestCase):
     def test_should_create_and_run_netconf_server_with_multiple_models(self):
         # given
         modules_to_subscribe_names = ["test", "test2", "test3"]
-        server = NetconfChangeListenerFactory(modules_to_subscribe_names).create()
+        factory = TestNetconfChangeListenerFactory._given_netconf_change_listener_factory(modules_to_subscribe_names)
+        server = factory.create()
         session = MockedSession()
         session.subscribe_module_change = MagicMock()
 
@@ -51,3 +59,12 @@ class TestNetconfServer(unittest.TestCase):
 
         # then
         self.assertEqual(session.subscribe_module_change.call_count, 3)
+
+    @staticmethod
+    def _given_netconf_change_listener_factory(modules_to_subscribe_names: list) -> NetconfChangeListenerFactory:
+        app_configuration, _ = NetconfAppConfiguration.get_configuration(
+            ["../models", "models-configuration.ini", "127.0.0.1", "9092",
+             "kafka1"])  # type: NetconfAppConfiguration, str
+        factory = NetconfChangeListenerFactory(modules_to_subscribe_names, app_configuration)
+        factory._create_kafka_client = lambda host, port: MagicMock()
+        return factory

@@ -28,7 +28,7 @@ from netconf_server.sysrepo_interface.sysrepo_client import SysrepoClient
 
 logging.basicConfig(
     handlers=[logging.StreamHandler(), logging.FileHandler("/logs/netconf_rest_application.log")],
-    level=logging.DEBUG
+    level=logging.INFO
 )
 logger = logging.getLogger("netconf_rest_application")
 
