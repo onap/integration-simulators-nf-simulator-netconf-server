@@ -17,8 +17,19 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
+from json import loads
 
-sysrepo==0.4.2
-Flask==1.1.1
-kafka-python==2.0.2
-retry==0.9.2
+from kafka import KafkaConsumer
+
+STANDARD_CHARSETS_UTF8 = 'utf-8'
+
+
+def provide_kafka_consumer(topic: str, server: str) -> KafkaConsumer:
+    return KafkaConsumer(topic,
+                         consumer_timeout_ms=1000,
+                         group_id='netconf-group',
+                         auto_offset_reset='earliest',
+                         enable_auto_commit=False,
+                         bootstrap_servers=[server],
+                         value_deserializer=lambda x: loads(x.decode(STANDARD_CHARSETS_UTF8))
+                         )
