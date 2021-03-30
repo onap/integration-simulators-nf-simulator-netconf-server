@@ -19,14 +19,24 @@
 ###
 import logging
 from json import dumps, loads
-from typing import Callable
+from typing import Callable, Any
 
 from kafka import KafkaProducer, KafkaConsumer
+from kafka.errors import NoBrokersAvailable
 from kafka.producer.future import FutureRecordMetadata
+from retry import retry
 
 STANDARD_CHARSETS_UTF8 = 'utf-8'
 
 logger = logging.getLogger("netconf_kafka_client")
+
+
+@retry(NoBrokersAvailable, tries=3, delay=5)
+def provide_configured_kafka_client(kafka_host_name, kafka_port):
+    return NetconfKafkaClient.create(
+        host=kafka_host_name,
+        port=kafka_port
+    )  # type: NetconfKafkaClient
 
 
 def provide_kafka_consumer(topic: str, server: str) -> KafkaConsumer:
@@ -34,7 +44,7 @@ def provide_kafka_consumer(topic: str, server: str) -> KafkaConsumer:
                          consumer_timeout_ms=1000,
                          group_id='netconf-group',
                          auto_offset_reset='earliest',
-                         enable_auto_commit=True,
+                         enable_auto_commit=False,
                          bootstrap_servers=[server],
                          value_deserializer=lambda x: loads(x.decode(STANDARD_CHARSETS_UTF8))
                          )
@@ -43,7 +53,7 @@ def provide_kafka_consumer(topic: str, server: str) -> KafkaConsumer:
 class NetconfKafkaClient(object):
 
     @staticmethod
-    def create(host: str, port: int) -> object:
+    def create(host: str, port: int):
         server = "{}:{}".format(host, port)
         producer = KafkaProducer(
             bootstrap_servers=server,
@@ -59,7 +69,7 @@ class NetconfKafkaClient(object):
         self._producer = producer
         self._get_kafka_consumer = get_kafka_consumer_func
 
-    def send(self, topic: str, value: str) -> FutureRecordMetadata:
+    def send(self, topic: str, value: Any) -> FutureRecordMetadata:
         return self._producer.send(
             topic=topic,
             value=value
@@ -72,7 +82,7 @@ class NetconfKafkaClient(object):
         consumer = self._get_kafka_consumer(topic)
         for message in consumer:
             message_value = message.value
-            logger.debug("Fetched config change %s" % message_value)
+            logger.info("Fetched config change %s" % message_value)
             messages.append(message_value)
 
         return messages

@@ -20,6 +20,6 @@ RUN mkdir -p /resources/certs && \
 ENV ENABLE_TLS=false
 ENV KAFKA_HOST_NAME="kafka1"
 ENV KAFKA_PORT=9092
-ENV KAFKA_TOPIC="config:1:1"
+ENV KAFKA_TOPIC="config"
 
 ENTRYPOINT ["./scripts/set-up-netopeer.sh", "/resources/models", "/resources/certs"]
