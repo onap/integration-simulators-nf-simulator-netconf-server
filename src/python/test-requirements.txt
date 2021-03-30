@@ -20,4 +20,5 @@
 
 pytest==6.2.2
 kafka-python==2.0.2
+retry==0.9.2
 
