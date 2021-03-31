@@ -14,7 +14,7 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 ###
-
+import json
 import logging
 
 
@@ -39,3 +39,7 @@ class SysrepoConfigurationManager(object):
     def change_configuration(self, config_data: str, module_name: str):
         data = self.__parse_config_data(config_data)
         self._session.replace_config_ly(data, module_name)
+
+    def get_configuration(self, module_name: str):
+        data = self._session.get_data("/" + module_name + ":*")
+        return json.dumps(data, indent=4)

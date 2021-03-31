@@ -78,6 +78,13 @@ class NetconfRestServer:
         return NetconfRestServer.__create_http_response(202, "Accepted")
 
     @staticmethod
+    @_rest_server.route("/get_config/<path:module_name>", methods=['GET'])
+    def _get_config(module_name):
+        data = NetconfRestServer._configuration_manager.get_configuration(module_name)
+        return NetconfRestServer.__create_http_response(200, data)
+
+
+    @staticmethod
     def __create_http_response(code, message):
         return make_response(
             Response(message, headers={'Content-Type': 'application/json'}),
