@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3710e27_805197fd",
+        "filename": "src/python/netconf_change_listener_application.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-03-31T05:52:31Z",
+      "side": 1,
+      "message": "After passing only \"app_configuration\" it can be replaced with \"app_configuration.module_configuration_file_path\"",
+      "range": {
+        "startLine": 46,
+        "startChar": 66,
+        "endLine": 46,
+        "endChar": 96
+      },
+      "revId": "cf2c6e1ee1b1cf9c948012d2f06f824613ba3adc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b33f97e_a35cfbeb",
+        "filename": "src/python/netconf_change_listener_application.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-03-31T05:52:31Z",
+      "side": 1,
+      "message": "I think only \"app_configuration\" can be passed here",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 58,
+        "endChar": 33
+      },
+      "revId": "cf2c6e1ee1b1cf9c948012d2f06f824613ba3adc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "521585bc_96e13be1",
+        "filename": "src/python/netconf_server/netconf_change_listener.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-03-31T05:52:31Z",
+      "side": 1,
+      "message": "I think \"NetconfKafkaMessageFactory\" can be passed to this object in __init__ method",
+      "range": {
+        "startLine": 61,
+        "startChar": 15,
+        "endLine": 61,
+        "endChar": 41
+      },
+      "revId": "cf2c6e1ee1b1cf9c948012d2f06f824613ba3adc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "099f3c0f_9f56fa91",
+        "filename": "src/python/netconf_server/netconf_kafka_client.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2021-03-31T05:52:31Z",
+      "side": 1,
+      "message": "I am not sure if this method called \"provide_kafka_consumer\" should be in file named \"netconf_kafka_client.py\", I think it may be misleading",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "cf2c6e1ee1b1cf9c948012d2f06f824613ba3adc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
