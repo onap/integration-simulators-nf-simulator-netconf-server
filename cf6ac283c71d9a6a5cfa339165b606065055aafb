@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a6f88760_833c304b",
+        "filename": "src/python/netconf_change_listener_application.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-04-01T06:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb77987a_1f1cfa4f",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 58,
+        "endChar": 33
+      },
+      "revId": "cf6ac283c71d9a6a5cfa339165b606065055aafb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97424808_86b8fe10",
         "filename": "src/python/netconf_server/netconf_kafka_client.py",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "cf6ac283c71d9a6a5cfa339165b606065055aafb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b75fca1f_adbc756b",
+        "filename": "src/python/netconf_server/netconf_kafka_client.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-04-01T06:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97424808_86b8fe10",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 50
+      },
+      "revId": "cf6ac283c71d9a6a5cfa339165b606065055aafb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d1b23fc1_3592d016",
+        "filename": "src/python/netconf_server/netconf_kafka_client.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-04-01T06:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f00dc90_33346153",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "cf6ac283c71d9a6a5cfa339165b606065055aafb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f60bdd50_a4245e22",
         "filename": "src/python/netconf_server/netconf_kafka_message_factory.py",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "4012770a_91b6e065",
+        "filename": "src/python/netconf_server/netconf_kafka_message_factory.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-04-01T06:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f60bdd50_a4245e22",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 14
+      },
+      "revId": "cf6ac283c71d9a6a5cfa339165b606065055aafb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d79f86f6_53ae4f47",
         "filename": "src/python/netconf_server/sysrepo_interface/config_change_subscriber.py",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "cf6ac283c71d9a6a5cfa339165b606065055aafb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ebeefeb_bb7fd7d5",
+        "filename": "src/python/netconf_server/sysrepo_interface/config_change_subscriber.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3433
+      },
+      "writtenOn": "2021-04-01T06:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d79f86f6_53ae4f47",
+      "range": {
+        "startLine": 25,
+        "startChar": 9,
+        "endLine": 25,
+        "endChar": 62
+      },
+      "revId": "cf6ac283c71d9a6a5cfa339165b606065055aafb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
