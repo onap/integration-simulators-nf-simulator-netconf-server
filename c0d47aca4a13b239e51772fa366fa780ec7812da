@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Krzysztof Kuzmicki <krzysztof.kuzmicki@nokia.com>
+Submitted-by: Krzysztof Kuzmicki <krzysztof.kuzmicki@nokia.com>
+Submitted-at: Fri, 02 Apr 2021 08:52:10 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/integration/simulators/nf-simulator/netconf-server/+/120011
+Project: integration/simulators/nf-simulator/netconf-server
+Branch: refs/heads/master
