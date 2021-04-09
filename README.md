@@ -82,6 +82,11 @@ Example of that custom config change subscription can be found in `example` dire
 ### REST API
 Netconf server provides REST interface, with enpoints:
 - *GET* `/healthcheck` returns 200 "UP" if server is up and running
+- *POST* `/readiness` return 200 "Ready" if server is ready, if not, returns 503 "Not Ready"
+- *POST* `/change_config/<path:module_name>` changes configuration ad returns 202 "Accepted"
+- *GET* `/change_history` returns 200 and change history as json
+- *GET* `/get_config/<path:module_name>` returns 200 and current configuration
+
 
 ### logging
 Netconf server print all logs on to the console.
