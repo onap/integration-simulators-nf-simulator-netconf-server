@@ -1,0 +1,7 @@
+Code-Review+2: Bogumil Zebek <bogumil.zebek@nokia.com>
+Verified+1: Bogumil Zebek <bogumil.zebek@nokia.com>
+Submitted-by: Bogumil Zebek <bogumil.zebek@nokia.com>
+Submitted-at: Fri, 09 Apr 2021 10:58:05 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/integration/simulators/nf-simulator/netconf-server/+/120359
+Project: integration/simulators/nf-simulator/netconf-server
+Branch: refs/heads/master
