@@ -21,7 +21,6 @@ import logging
 
 from kafka.producer.future import FutureRecordMetadata
 
-
 from netconf_server.netconf_kafka_client import NetconfKafkaClient
 from netconf_server.netconf_kafka_message_factory import NetconfKafkaMessageFactory
 from netconf_server.sysrepo_interface.config_change_data import ConfigChangeData
@@ -53,11 +52,19 @@ class NetconfChangeListener(object):
                 kafka_message = NetconfChangeListener._create_kafka_message(change)
                 logging.info("Sending message '{}' to Kafka '{}' topic".format(kafka_message, self.topic))
                 response = self.kafka_client.send(self.topic, kafka_message)  # type: FutureRecordMetadata
-                logging.info("Response from Kafka: {}".format(response.get(timeout=1)))
-
+                self.set_up_callbacks_for_kafka_request(response)
+                logging.info("Module changes sent to Kafka")
             except Exception as e:
                 logger.error("Exception occurred during handling of sysrepo config change", e)
-        logger.info("Module changes sent to Kafka. Operation finished.")
+
+    @staticmethod
+    def set_up_callbacks_for_kafka_request(response):
+        response.add_callback(
+            lambda val: logging.info("Response from Kafka: {}".format(val))
+        )
+        response.add_errback(
+            lambda exc: logging.error("Exception from Kafka: {}".format(exc))
+        )
 
     @staticmethod
     def _create_kafka_message(change):

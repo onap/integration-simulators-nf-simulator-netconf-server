@@ -48,6 +48,10 @@ class NetconfKafkaClient(object):
         server = "{}:{}".format(host, port)
         producer = KafkaProducer(
             bootstrap_servers=server,
+            request_timeout_ms=15000,
+            retry_backoff_ms=1000,
+            max_in_flight_requests_per_connection=1,
+            retries=3,
             value_serializer=lambda x: dumps(x).encode(STANDARD_CHARSETS_UTF8)
         )
 
