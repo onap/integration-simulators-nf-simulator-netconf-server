@@ -32,8 +32,10 @@ class TestNetconfKafkaClient(TestCase):
 
     def setUp(self):
         self.producer = MagicMock()
+        self.list = List(MagicMock(value=MESSAGE_1), MagicMock(value=MESSAGE_2))
+        self.list.close = MagicMock()
         self.kafka_customer_func = MagicMock(
-            return_value=[MagicMock(value=MESSAGE_1), MagicMock(value=MESSAGE_2)]
+            return_value=self.list
         )
         self.test_obj = NetconfKafkaClient(
             producer=self.producer,
@@ -58,3 +60,20 @@ class TestNetconfKafkaClient(TestCase):
         self.assertTrue(len(messages) == 2)
         self.assertTrue(MESSAGE_1 in messages)
         self.assertTrue(MESSAGE_2 in messages)
+
+
+class List(list):
+
+    def __new__(self, *args, **kwargs):
+        return super(List, self).__new__(self, args, kwargs)
+
+    def __init__(self, *args, **kwargs):
+        if len(args) == 1 and hasattr(args[0], '__iter__'):
+            list.__init__(self, args[0])
+        else:
+            list.__init__(self, args)
+        self.__dict__.update(kwargs)
+
+    def __call__(self, **kwargs):
+        self.__dict__.update(kwargs)
+        return self
