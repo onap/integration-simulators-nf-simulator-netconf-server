@@ -75,5 +75,6 @@ class NetconfKafkaClient(object):
             message_value = message.value
             logger.info("Fetched config change %s" % message_value)
             messages.append(message_value)
+        consumer.close()
 
         return messages
