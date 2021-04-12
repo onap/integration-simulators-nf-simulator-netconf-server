@@ -16,6 +16,24 @@
       "revId": "8d748f98def045a1968b90fb4a5430b189fe7a99",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbaffec7_9fc26cc9",
+        "filename": "src/python/tests/unit/test_netconf_kafka_client.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7439
+      },
+      "writtenOn": "2021-04-12T12:46:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b016d70f_8c1f1515",
+      "revId": "8d748f98def045a1968b90fb4a5430b189fe7a99",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
