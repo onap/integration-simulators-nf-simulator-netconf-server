@@ -26,7 +26,7 @@ STANDARD_CHARSETS_UTF8 = 'utf-8'
 
 def provide_kafka_consumer(topic: str, server: str) -> KafkaConsumer:
     return KafkaConsumer(topic,
-                         consumer_timeout_ms=1000,
+                         consumer_timeout_ms=5000,
                          group_id='netconf-group',
                          auto_offset_reset='earliest',
                          enable_auto_commit=False,
