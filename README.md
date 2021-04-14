@@ -90,7 +90,7 @@ Netconf server provides REST interface, with enpoints:
 
 ### logging
 Netconf server print all logs on to the console.
-Logs from python application are also stored in file `/logs/netconf_saver.log`
+Logs from python applications are also stored in files located in `/logs` directory
 
 
 ## Development guide 
