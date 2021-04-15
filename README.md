@@ -1,6 +1,6 @@
 # Netconf Server
 This server uses sysrepo to simulate network configuration.
-It is base od sysrepo-netopeer2 image.
+It is based on sysrepo-netopeer2 image.
 
 
 ## User guide
