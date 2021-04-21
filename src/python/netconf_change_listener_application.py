@@ -20,12 +20,12 @@
 import asyncio
 import sys
 import logging
-
+from retry import retry
 
 from netconf_server.netconf_app_configuration import NetconfAppConfiguration
 
 from netconf_server.netconf_change_listener import NetconfChangeListener
-from netconf_server.netconf_change_listener_factory import NetconfChangeListenerFactory
+from netconf_server.netconf_change_listener_factory import NetconfChangeListenerFactory, NetconfChangeListenerException
 from netconf_server.sysrepo_configuration.sysrepo_configuration_loader import SysrepoConfigurationLoader, \
     ConfigLoadingException
 from netconf_server.sysrepo_interface.sysrepo_client import SysrepoClient
@@ -44,6 +44,11 @@ def run_server_forever(session, connection, change_listener: NetconfChangeListen
 
 def create_change_listener(app_configuration: NetconfAppConfiguration) -> NetconfChangeListener:
     configuration = SysrepoConfigurationLoader.load_configuration(app_configuration.module_configuration_file_path)
+    return subscribe_to_kafka(app_configuration, configuration)
+
+
+@retry(NetconfChangeListenerException, tries=10, delay=10)
+def subscribe_to_kafka(app_configuration, configuration):
     return NetconfChangeListenerFactory(configuration.models_to_subscribe_to, app_configuration).create()
 
 
