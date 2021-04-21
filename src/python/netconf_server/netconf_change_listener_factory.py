@@ -19,7 +19,6 @@
 ###
 import logging
 
-
 from netconf_server.netconf_app_configuration import NetconfAppConfiguration
 from netconf_server.netconf_change_listener import NetconfChangeListener
 from netconf_server.netconf_kafka_client import NetconfKafkaClient, provide_configured_kafka_client
@@ -35,18 +34,25 @@ class NetconfChangeListenerFactory(object):
         self.app_configuration = app_configuration
 
     def create(self) -> NetconfChangeListener:
-        subscriptions = list()
-        for module_name in self.modules_to_subscribe_names:
-            subscriptions.append(
-                ConfigChangeSubscriber(module_name)
+        try:
+            subscriptions = list()
+            for module_name in self.modules_to_subscribe_names:
+                subscriptions.append(
+                    ConfigChangeSubscriber(module_name)
+                )
+            kafka_client = NetconfChangeListenerFactory._try_to_create_kafka_client(
+                self.app_configuration.kafka_host_name,
+                self.app_configuration.kafka_port
             )
-        kafka_client = NetconfChangeListenerFactory._try_to_create_kafka_client(
-            self.app_configuration.kafka_host_name,
-            self.app_configuration.kafka_port
-        )
 
-        return NetconfChangeListener(subscriptions, kafka_client, self.app_configuration.kafka_topic)
+            return NetconfChangeListener(subscriptions, kafka_client, self.app_configuration.kafka_topic)
+        except Exception as e:
+            raise NetconfChangeListenerException(e)
 
     @staticmethod
     def _try_to_create_kafka_client(kafka_host_name: str, kafka_port: int):
         return provide_configured_kafka_client(kafka_host_name, kafka_port)  # type: NetconfKafkaClient
+
+
+class NetconfChangeListenerException(Exception):
+    pass
