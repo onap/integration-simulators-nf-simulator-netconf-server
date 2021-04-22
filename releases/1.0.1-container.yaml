@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '1.0.1'
+project: 'integration-simulators-nf-simulator-netconf-server'
+log_dir: 'integration-simulators-nf-simulator-netconf-server-maven-docker-stage-master/45/'
+ref: 6182d0fbd371250e43b5c0e741f56ab05b476fe6
+containers:
+  - name: 'org.onap.integration.nfsimulator.netconfserver'
+    version: '1.0.1-STAGE-20210422T085411Z'
